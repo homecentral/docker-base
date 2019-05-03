@@ -8,6 +8,14 @@
       "productId": {
         "description": "The unique identifier for a product",
         "type": "integer"
+      },
+      "ip": {
+        "description": "IPv4 Address",
+        "type": "ipv4"
+      },
+      "cidr": {
+        "description": "IPv4 CIDR block",
+        "type": "cidr"
       }
     },
     "required": [ "productId" ]

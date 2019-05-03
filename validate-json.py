@@ -3,9 +3,12 @@
 import sys
 import yaml
 import simplejson as json
+import ipaddress
+import iptools
 
 from jsonschema import Draft6Validator
 from jsonschema import validate
+from jsonschema.validators import extend
 
 schema = {
     "$schema": "https://json-schema.org/schema#",
@@ -18,12 +21,15 @@ schema = {
     "required": ["email"]
 }
 
-document = """
-  a: 1
-  b:
-    c: 3
-    d: 4
-"""
+def is_ipv4(checker, instance):
+    try:
+        ipaddress.ip_address(instance)
+        return True
+    except ValueError:
+        return False
+
+def is_cidr(checker, instance):
+    return iptools.ipv4.validate_cidr(instance)
 
 def load_data(file_name):
     with open(file_name,"r") as file:
@@ -36,7 +42,14 @@ def get_validator(schema_file_name):
         schema_contents = file.read()
 
     schema_json = json.loads(schema_contents)
-    validator = Draft6Validator(schema_json)
+    
+    type_checker = Draft6Validator.TYPE_CHECKER.redefine("ipv4", is_ipv4)
+    type_checker = type_checker.redefine("cidr", is_cidr)
+
+    CustomValidator = extend(Draft6Validator, type_checker=type_checker)
+    
+    validator = CustomValidator(schema_json)
+
 
     return validator
 
