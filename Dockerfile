@@ -1,6 +1,6 @@
 FROM alpine
 
-ADD ./validate-json.py /scripts/validate-json.py
+ADD ./validate-json.py /tools/validate-json.py
 ADD ./validate-schema.sh /usr/sbin/validate-schema
 
 RUN apk update && \
