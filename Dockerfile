@@ -1,8 +1,10 @@
 FROM alpine
 
-ADD ./validate-json.py /tools/validate-json.py
 ADD ./j2filters/ipaddr.py /tools/j2filters/ipaddr.py
+
+ADD ./validate-schema.py /tools/validate-schema.py
 ADD ./validate-schema.sh /usr/sbin/validate-schema
+
 ADD ./generate-config.sh /usr/sbin/generate-config
 
 RUN apk add --no-cache python3 && \

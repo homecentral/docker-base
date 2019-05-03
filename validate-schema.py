@@ -11,17 +11,6 @@ from jsonschema import Draft6Validator
 from jsonschema import validate
 from jsonschema.validators import extend
 
-schema = {
-    "$schema": "https://json-schema.org/schema#",
-
-    "type": "object",
-    "properties": {
-        "name": {"type": "string"},
-        "email": {"type": "string"},
-    },
-    "required": ["email"]
-}
-
 def is_ipv4(checker, instance):
     try:
         ipaddress.ip_address(instance)
@@ -37,7 +26,7 @@ def is_mac(checker, instance):
 
 def load_data(file_name):
     with open(file_name,"r") as file:
-        result = yaml.load(file)
+        result = yaml.safe_load(file)
 
     return result
 
