@@ -16,6 +16,10 @@
       "cidr": {
         "description": "IPv4 CIDR block",
         "type": "cidr"
+      },
+      "mac": {
+        "description": "MAC address",
+        "type": "mac"
       }
     },
     "required": [ "productId" ]

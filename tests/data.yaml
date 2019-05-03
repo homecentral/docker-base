@@ -2,7 +2,8 @@ productId: 123
 productName: "A green door"
 price: 12.50
 ip: 192.168.1.5
-cidr: 192.168.1.5/48
+cidr: 192.168.1.5/24
+mac: 00:0a:95:9d:68:1F
 tags:
   - "home"
   - "green"

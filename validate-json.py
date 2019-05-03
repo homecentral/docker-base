@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import re
 import sys
 import yaml
 import simplejson as json
@@ -31,6 +32,9 @@ def is_ipv4(checker, instance):
 def is_cidr(checker, instance):
     return iptools.ipv4.validate_cidr(instance)
 
+def is_mac(checker, instance):
+    return re.match("[0-9a-f]{2}([:])[0-9a-f]{2}(\\1[0-9a-f]{2}){4}$", instance.lower())
+
 def load_data(file_name):
     with open(file_name,"r") as file:
         result = yaml.load(file)
@@ -45,6 +49,7 @@ def get_validator(schema_file_name):
     
     type_checker = Draft6Validator.TYPE_CHECKER.redefine("ipv4", is_ipv4)
     type_checker = type_checker.redefine("cidr", is_cidr)
+    type_checker = type_checker.redefine("mac", is_mac)
 
     CustomValidator = extend(Draft6Validator, type_checker=type_checker)
     
