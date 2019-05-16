@@ -4,11 +4,13 @@ def timespan_seconds(value):
     value = value.lower()
     num = int(value[:-1])
 
-    if value.endswith('s'):
-        return timedelta(seconds=num)
-    elif value.endswith('m'):
-        return timedelta(minutes=num)
+    if value.endswith('m'):
+        delta = timedelta(minutes=num)
     elif value.endswith('h'):
-        return timedelta(hours=num)
+        delta = timedelta(hours=num)
     elif value.endswith('d'):
-        return timedelta(days=num)
+        delta = timedelta(days=num)
+    else:
+        delta = timedelta(seconds=num)
+
+    return delta.total_seconds()
