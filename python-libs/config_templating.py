@@ -2,6 +2,7 @@
 
 import os
 import ipaddr
+import timespan
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -12,6 +13,7 @@ def execute_template(data, template_file, target_file):
                         trim_blocks=True)
     
     j2_env.filters['ipaddr'] = ipaddr.ipaddr
+    j2_env.filters['timespan_seconds'] = timespan.timespan_seconds
 
     rendered = j2_env.get_template(os.path.basename(template_file)).render(data)
 
