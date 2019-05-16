@@ -2,7 +2,7 @@ from datetime import timedelta
 
 def timespan_seconds(value):
     value = value.lower()
-    num = int(value[:-1])
+    num = float(value[:-1])
 
     if value.endswith('m'):
         delta = timedelta(minutes=num)
